@@ -45,6 +45,10 @@ This example assumes you have both go-dbi and the
         defer conn.Close()
     }
 
+## License
+
+This software is licensed under the terms of the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
+
 ## Support
 
 Please log defects and feature requests using the issue tracker on github.
