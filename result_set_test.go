@@ -12,12 +12,12 @@ func (self *DummyResultSet) Next() bool {
     return false
 }
 
-func (self *DummyResultSet) FetchArray() []interface{} {
-    return nil
+func (self *DummyResultSet) GetStringByCol(col int) (string, os.Error) {
+    return "hello", nil
 }
 
-func (self *DummyResultSet) FetchMap() map[string]interface{} {
-    return nil
+func (self *DummyResultSet) GetString(col string) (string, os.Error) {
+    return "hello with string", nil
 }
 
 func (self *DummyResultSet) Close() os.Error {
@@ -30,15 +30,15 @@ func TestResultSetNextMethodWorks(t *testing.T) {
     }(new(DummyResultSet))
 }
 
-func TestResultSetFetchArrayMethodWorks(t *testing.T) {
+func TestResultSetGetStringByColMethodWorks(t *testing.T) {
     func(rs ResultSet) {
-        rs.FetchArray()
+        rs.GetStringByCol(1)
     }(new(DummyResultSet))
 }
 
-func TestResultSetFetchMapMethodWorks(t *testing.T) {
+func TestResultSetGetStringMethodWorks(t *testing.T) {
     func(rs ResultSet) {
-        rs.FetchMap()
+        rs.GetString("foo")
     }(new(DummyResultSet))
 }
 
