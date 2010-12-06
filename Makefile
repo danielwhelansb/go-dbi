@@ -1,17 +1,7 @@
-TOPDIR=$(shell cd "`dirname $(lastword $(MAKEFILE_LIST))`" && pwd)
-PKGDIR=$(TOPDIR)/pkg
+include $(GOROOT)/src/Make.inc
 
-PACKAGES=dbi
+TARG=dbi
+GOFILES=$(shell find . -name '*.go' -not -name '*_test.go')
 
-all: $(PACKAGES)
-	for package in $(PACKAGES); do \
-		$(MAKE) -C "$(PKGDIR)/$$package"; \
-	done
-
-clean:
-	for package in $(PACKAGES); do \
-		$(MAKE) -C "$(PKGDIR)/$$package" clean; \
-	done
-
-.PHONY: all clean
+include $(GOROOT)/src/Make.pkg
 
