@@ -8,14 +8,14 @@ import (
 type DummyDriver struct {
 }
 
-func (self *DummyDriver) GetConnection(host, username, password string, options map[string]interface{}) (Connection, os.Error) {
+func (self *DummyDriver) GetConnection(host, username, password, db string, options map[string]interface{}) (Connection, os.Error) {
     return new(DummyConnection), nil
 }
 
 func TestGetConnectionMethodWorks(*testing.T) {
     drv := new(DummyDriver)
     func(d Driver) {
-        _, _ = d.GetConnection("localhost", "root", "", nil)
+        _, _ = d.GetConnection("localhost", "root", "", "testdb", nil)
     }(drv)
 }
 
