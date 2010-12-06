@@ -7,7 +7,7 @@ import (
 )
 
 type Driver interface {
-    GetConnection(host, username, password, db string, options map[string]interface{}) (Connection, os.Error)
+    GetConnection(host, username, password, db string, options map[string][]string) (Connection, os.Error)
 }
 
 var drivers map[string]Driver
@@ -41,7 +41,12 @@ func Connect(dsn string) (Connection, os.Error) {
         return nil, os.NewError("No such driver: " + url.Scheme)
     }
 
-    return driver.GetConnection(url.Host, username, password, db, nil)
+    options, err := http.ParseQuery(url.RawQuery)
+    if err != nil {
+        return nil, os.NewError("Could not parse query string: " + url.RawQuery)
+    }
+
+    return driver.GetConnection(url.Host, username, password, db, options)
 }
 
 func init() {

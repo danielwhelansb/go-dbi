@@ -8,7 +8,7 @@ import (
 type DummyDriver struct {
 }
 
-func (self *DummyDriver) GetConnection(host, username, password, db string, options map[string]interface{}) (Connection, os.Error) {
+func (self *DummyDriver) GetConnection(host, username, password, db string, options map[string][]string) (Connection, os.Error) {
     conn := new(DummyConnection)
     conn.host = host
     conn.username = username
@@ -73,6 +73,28 @@ func TestConnectWithAuth(t *testing.T) {
     }
     if dummyConn.db != "bar" {
         t.Fatal("dummyConn.db != 'bar': " + dummyConn.db)
+    }
+}
+
+func TestConnectWithQueryString(t *testing.T) {
+    drv := new(DummyDriver)
+    AddDriver("dummy", drv)
+
+    conn, err := Connect("dummy://foo/bar?baz=true")
+    if err != nil {
+        t.Fatal("Expected Connect() to succeed: " + err.String())
+    }
+
+    dummyConn := conn.(*DummyConnection)
+    value, found := dummyConn.options["baz"]
+    if !found {
+        t.Fatal("Could not find 'baz' parameter in dummyConn options")
+    }
+    if len(value) != 1 {
+        t.Fatal("Expected exactly one value for the baz option.")
+    }
+    if value[0] != "true" {
+        t.Fatal("Expected baz option to be the string 'true'")
     }
 }
 

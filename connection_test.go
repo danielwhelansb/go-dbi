@@ -10,7 +10,7 @@ type DummyConnection struct {
     username string
     password string
     db string
-    options map[string]interface{}
+    options map[string][]string
 }
 
 func (self *DummyConnection) GetOne(sql string, params ...interface{}) (interface{}, os.Error) {
