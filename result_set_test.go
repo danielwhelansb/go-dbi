@@ -8,6 +8,10 @@ import (
 type DummyResultSet struct {
 }
 
+func (self *DummyResultSet) Len() uint64 {
+    return 0
+}
+
 func (self *DummyResultSet) Next() bool {
     return false
 }
@@ -22,6 +26,12 @@ func (self *DummyResultSet) GetString(col string) (string, os.Error) {
 
 func (self *DummyResultSet) Close() os.Error {
     return nil
+}
+
+func TestResultSetLenMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.Len()
+    }(new(DummyResultSet))
 }
 
 func TestResultSetNextMethodWorks(t *testing.T) {
