@@ -13,6 +13,10 @@ type DummyConnection struct {
     options map[string][]string
 }
 
+func (self *DummyConnection) Execute(sql string, params ...interface{}) os.Error {
+    return nil
+}
+
 func (self *DummyConnection) GetOne(sql string, params ...interface{}) (interface{}, os.Error) {
     return 42, nil
 }
@@ -42,6 +46,16 @@ func TestGetOneMethodWorks(t *testing.T) {
         }
         if res.(int) != 42 {
             t.Fatal("Expected result == 42")
+        }
+    }(conn)
+}
+
+func TestExecuteMethodWorks(t *testing.T) {
+    conn := new(DummyConnection)
+    func(c Connection) {
+        err := c.Execute("CREATE TABLE users (...)")
+        if err != nil {
+            t.Fatal("Expected Execute() to pass")
         }
     }(conn)
 }
