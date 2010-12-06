@@ -48,15 +48,6 @@ This example assumes you have both go-dbi and the
 ## Support
 
 Please log defects and feature requests using the issue tracker on github.
-For everything else ...
-
-### Community
-
-Community support is available from the (go-dbi website)[http://godbi.org]
-
-### Commercial
-
-Commercial support is currently unavailable.
 
 ## About
 
