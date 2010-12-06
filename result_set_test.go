@@ -24,6 +24,14 @@ func (self *DummyResultSet) GetString(col string) (string, os.Error) {
     return "hello with string", nil
 }
 
+func (self *DummyResultSet) GetValueByCol(col int) (interface{}, os.Error) {
+    return 123, nil
+}
+
+func (self *DummyResultSet) GetValue(col string) (interface{}, os.Error) {
+    return 456, nil
+}
+
 func (self *DummyResultSet) Close() os.Error {
     return nil
 }
@@ -49,6 +57,18 @@ func TestResultSetGetStringByColMethodWorks(t *testing.T) {
 func TestResultSetGetStringMethodWorks(t *testing.T) {
     func(rs ResultSet) {
         rs.GetString("foo")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetValueByColMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetValueByCol(0)
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetValueMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetValue("test")
     }(new(DummyResultSet))
 }
 

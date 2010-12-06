@@ -7,6 +7,8 @@ type ResultSet interface {
     Next() bool
     GetStringByCol(col int) (string, os.Error)
     GetString(col string) (string, os.Error)
+    GetValueByCol(col int) (interface{}, os.Error)
+    GetValue(col string) (interface{}, os.Error)
     Close() os.Error
 }
 
