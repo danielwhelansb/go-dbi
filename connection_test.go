@@ -25,6 +25,10 @@ func (self *DummyConnection) GetOne(sql string, params ...interface{}) (interfac
     return 42, nil
 }
 
+func (self *DummyConnection) GetRow(sql string, params ...interface{}) (map[string]interface{}, os.Error) {
+    return map[string]interface{}{"bar": "baz"}, nil
+}
+
 func (self *DummyConnection) Close() os.Error {
     return nil
 }
@@ -50,6 +54,23 @@ func TestGetOneMethodWorks(t *testing.T) {
         }
         if res.(int) != 42 {
             t.Fatal("Expected result == 42")
+        }
+    }(conn)
+}
+
+func TestGetRowMethodWorks(t *testing.T) {
+    conn := new(DummyConnection)
+    func(c Connection) {
+        res, err := c.GetRow("SELECT * FROM bar")
+        if err != nil {
+            t.Fatal("Expected GetRow() to pass")
+        }
+        value, found := res["bar"]
+        if !found {
+            t.Fatal("Expected row to contain key: 'bar'")
+        }
+        if value.(string) != "baz" {
+            t.Fatal("Expected value == 'baz'")
         }
     }(conn)
 }

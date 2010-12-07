@@ -13,6 +13,9 @@ type Connection interface {
     // Get the value of the first field of the first row returned by a query.
     GetOne(sql string, params ...interface{}) (interface{}, os.Error)
 
+    // Gets the first row returned by a query.
+    GetRow(sql string, params ...interface{}) (map[string]interface{}, os.Error)
+
     // Disconnect from the database.
     Close() os.Error
 }
