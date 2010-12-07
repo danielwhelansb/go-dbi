@@ -16,6 +16,9 @@ type Connection interface {
     // Gets the first row returned by a query.
     GetRow(sql string, params ...interface{}) (map[string]interface{}, os.Error)
 
+    // Gets all rows returned by a query.
+    GetAll(sql string, params ...interface{}) ([]map[string]interface{}, os.Error)
+
     // Disconnect from the database.
     Close() os.Error
 }

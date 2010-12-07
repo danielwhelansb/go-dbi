@@ -29,6 +29,13 @@ func (self *DummyConnection) GetRow(sql string, params ...interface{}) (map[stri
     return map[string]interface{}{"bar": "baz"}, nil
 }
 
+func (self *DummyConnection) GetAll(sql string, params ...interface{}) ([]map[string]interface{}, os.Error) {
+    return [](map[string]interface{}){
+        map[string]interface{}{"value": 1},
+        map[string]interface{}{"value": 2},
+    }, nil
+}
+
 func (self *DummyConnection) Close() os.Error {
     return nil
 }
@@ -71,6 +78,32 @@ func TestGetRowMethodWorks(t *testing.T) {
         }
         if value.(string) != "baz" {
             t.Fatal("Expected value == 'baz'")
+        }
+    }(conn)
+}
+
+func TestGetAllMethodWorks(t *testing.T) {
+    conn := new(DummyConnection)
+    func(c Connection) {
+        res, err := c.GetAll("SELECT * FROM bar")
+        if err != nil {
+            t.Fatal("Expected GetAll() to pass")
+        }
+
+        value1, found := res[0]["value"]
+        if !found {
+            t.Fatal("Expected to find value field")
+        }
+        if value1.(int) != 1 {
+            t.Fatal("Expected first row value = 1")
+        }
+
+        value2, found := res[1]["value"]
+        if !found {
+            t.Fatal("Expected to find value field")
+        }
+        if value2.(int) != 2 {
+            t.Fatal("Expected second row value = 2")
         }
     }(conn)
 }
