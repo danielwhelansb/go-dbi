@@ -20,7 +20,7 @@ func (self *DummyResultSet) GetString(col interface{}) (string, os.Error) {
     return "hello", nil
 }
 
-func (self *DummyResultSet) GetByte(col interface{}) (byte, os.Error) {
+func (self *DummyResultSet) GetUint8(col interface{}) (uint8, os.Error) {
     return 1, nil
 }
 
@@ -69,10 +69,10 @@ func TestResultSetGetStringMethodWorks(t *testing.T) {
     }(new(DummyResultSet))
 }
 
-func TestResultSetGetByteMethodWorks(t *testing.T) {
+func TestResultSetGetUint8MethodWorks(t *testing.T) {
     func(rs ResultSet) {
-        rs.GetByte(0)
-        rs.GetByte("bleh")
+        rs.GetUint8(0)
+        rs.GetUint8("bleh")
     }(new(DummyResultSet))
 }
 
