@@ -13,6 +13,9 @@ type ResultSet interface {
     // Get a string value by column name or zero-based index.
     GetString(col interface{}) (string, os.Error)
 
+    // Get an int value by column name or zero-based index.
+    GetInt(col interface{}) (int, os.Error)
+
     // Get a value of arbitrary type by column name or zero-based index.
     GetValue(col interface{}) (interface{}, os.Error)
 

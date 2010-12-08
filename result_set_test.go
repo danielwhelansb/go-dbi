@@ -20,6 +20,10 @@ func (self *DummyResultSet) GetString(col interface{}) (string, os.Error) {
     return "hello", nil
 }
 
+func (self *DummyResultSet) GetInt(col interface{}) (int, os.Error) {
+    return 1, nil
+}
+
 func (self *DummyResultSet) GetValue(col interface{}) (interface{}, os.Error) {
     return 123, nil
 }
@@ -27,6 +31,8 @@ func (self *DummyResultSet) GetValue(col interface{}) (interface{}, os.Error) {
 func (self *DummyResultSet) Close() os.Error {
     return nil
 }
+
+// ---------------------
 
 func TestResultSetLenMethodWorks(t *testing.T) {
     func(rs ResultSet) {
@@ -45,6 +51,13 @@ func TestResultSetGetStringMethodWorks(t *testing.T) {
         rs.GetString(1)
         rs.GetString("foo")
     }(new(DummyResultSet))
+}
+
+func TestResultSetGetIntMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetInt(1)
+        rs.GetInt("bar")
+    }(new(DummyResultSet));
 }
 
 func TestResultSetGetValueMethodWorks(t *testing.T) {
