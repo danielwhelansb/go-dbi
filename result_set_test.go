@@ -32,6 +32,10 @@ func (self *DummyResultSet) GetUint32(col interface{}) (uint32, os.Error) {
     return 1, nil
 }
 
+func (self *DummyResultSet) GetUint64(col interface{}) (uint64, os.Error) {
+    return 1, nil
+}
+
 func (self *DummyResultSet) GetValue(col interface{}) (interface{}, os.Error) {
     return 123, nil
 }
@@ -79,6 +83,13 @@ func TestResultSetGetUint32MethodWorks(t *testing.T) {
     func(rs ResultSet) {
         rs.GetUint32(1)
         rs.GetUint32("boz")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetUint64MethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetUint64(1)
+        rs.GetUint64("bleh")
     }(new(DummyResultSet))
 }
 
