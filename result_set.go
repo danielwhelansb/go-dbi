@@ -16,6 +16,9 @@ type ResultSet interface {
     // Get an int32 value by column name or zero-based index.
     GetInt32(col interface{}) (int32, os.Error)
 
+    // Get an int64 value by column name or zero-based index.
+    GetInt64(col interface{}) (int64, os.Error)
+
     // Get a value of arbitrary type by column name or zero-based index.
     GetValue(col interface{}) (interface{}, os.Error)
 
