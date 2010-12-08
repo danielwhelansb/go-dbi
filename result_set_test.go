@@ -20,7 +20,7 @@ func (self *DummyResultSet) GetString(col interface{}) (string, os.Error) {
     return "hello", nil
 }
 
-func (self *DummyResultSet) GetInt32(col interface{}) (int, os.Error) {
+func (self *DummyResultSet) GetInt32(col interface{}) (int32, os.Error) {
     return 1, nil
 }
 
