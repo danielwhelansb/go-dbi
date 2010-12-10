@@ -34,15 +34,37 @@ This example assumes you have both go-dbi and the
 
     import (
         "dbi"
-        "log"
+        "fmt"
     )
 
     func main() {
         conn, err := dbi.Connect("mysql://root@localhost/database")
         if err != nil {
-            log.Printf("error: unable to connect to the database: %s", err.String())
+            fmt.Printf("error: unable to connect to the database: %s\n", err.String())
+            return
         }
         defer conn.Close()
+
+        err = conn.Execute("INSERT INTO users (username) VALUES ('tom')")
+        if err != nil {
+            fmt.Printf("error: unable to insert user: %s\n", err.String())
+            return
+        }
+
+        rs, err := conn.Query("SELECT * FROM users WHERE username='tom'")
+        if err != nil {
+            fmt.Printf("error: unable to fetch users: %s\n", err.String())
+            return
+        }
+        defer rs.Close()
+
+        for rs.Next() {
+            // fetch by column index ...
+            fmt.Printf("%s\n", rs.GetString(0))
+
+            // ... or by name
+            fmt.Printf("%s\n", rs.GetString("username"))
+        }
     }
 
 ## License
