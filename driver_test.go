@@ -3,17 +3,21 @@ package dbi
 import (
     "os"
     "testing"
+    "http"
 )
 
 type DummyDriver struct {
 }
 
-func (self *DummyDriver) GetConnection(host, username, password, db string, options map[string][]string) (Connection, os.Error) {
+func (self *DummyDriver) GetConnection(url *http.URL) (Connection, os.Error) {
     conn := new(DummyConnection)
-    conn.host = host
-    conn.username = username
-    conn.password = password
-    conn.db = db
+    conn.host = url.Host
+    conn.userinfo = url.RawUserinfo
+    conn.db = url.Path[1:]
+    options, err := http.ParseQuery(url.RawQuery)
+    if err != nil {
+        return nil, err
+    }
     conn.options = options
     return conn, nil
 }
@@ -21,7 +25,8 @@ func (self *DummyDriver) GetConnection(host, username, password, db string, opti
 func TestGetConnectionMethodWorks(*testing.T) {
     drv := new(DummyDriver)
     func(d Driver) {
-        _, _ = d.GetConnection("localhost", "root", "", "testdb", nil)
+        url, _ := http.ParseURL("foo://root@localhost/testdb")
+        _, _ = d.GetConnection(url)
     }(drv)
 }
 
@@ -65,11 +70,8 @@ func TestConnectWithAuth(t *testing.T) {
     if dummyConn.host != "shinetech.com" {
         t.Fatal("dummyConn.host != 'shinetech.com': " + dummyConn.host)
     }
-    if dummyConn.username != "root" {
-        t.Fatal("dummyConn.username != 'root': " + dummyConn.username)
-    }
-    if dummyConn.password != "muffin" {
-        t.Fatal("dummyConn.password != 'muffin': " + dummyConn.password)
+    if dummyConn.userinfo != "root:muffin" {
+        t.Fatal("dummyConn.userinfo != 'root:muffin': " + dummyConn.userinfo)
     }
     if dummyConn.db != "bar" {
         t.Fatal("dummyConn.db != 'bar': " + dummyConn.db)

@@ -7,8 +7,7 @@ import (
 
 type DummyConnection struct {
     host string
-    username string
-    password string
+    userinfo string
     db string
     options map[string][]string
 }
