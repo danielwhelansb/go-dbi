@@ -33,8 +33,8 @@ This example assumes you have both go-dbi and the
     package main
 
     import (
-        "dbi"
         "fmt"
+        dbi "github.com/thomaslee/go-dbi"
     )
 
     func main() {
