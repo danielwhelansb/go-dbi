@@ -20,6 +20,14 @@ func (self *DummyResultSet) GetString(col interface{}) (string, os.Error) {
     return "hello", nil
 }
 
+func (self *DummyResultSet) GetInt8(col interface{}) (int8, os.Error) {
+    return 127, nil
+}
+
+func (self *DummyResultSet) GetInt16(col interface{}) (int16, os.Error) {
+    return 12345, nil
+}
+
 func (self *DummyResultSet) GetInt32(col interface{}) (int32, os.Error) {
     return 1, nil
 }
@@ -73,10 +81,17 @@ func TestResultSetGetStringMethodWorks(t *testing.T) {
     }(new(DummyResultSet))
 }
 
-func TestResultSetGetUint8MethodWorks(t *testing.T) {
+func TestResultSetGetInt8MethodWorks(t *testing.T) {
     func(rs ResultSet) {
-        rs.GetUint8(0)
-        rs.GetUint8("bleh")
+        rs.GetInt8(0)
+        rs.GetInt8("blort")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetInt16MethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetInt16(0)
+        rs.GetInt16("snert")
     }(new(DummyResultSet))
 }
 
@@ -91,6 +106,13 @@ func TestResultSetGetInt64MethodWorks(t *testing.T) {
     func(rs ResultSet) {
         rs.GetInt64(1)
         rs.GetInt64("baz")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetUint8MethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetUint8(0)
+        rs.GetUint8("bleh")
     }(new(DummyResultSet))
 }
 
