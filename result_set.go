@@ -13,14 +13,17 @@ type ResultSet interface {
     // Get a string value by column name or zero-based index.
     GetString(col interface{}) (string, os.Error)
 
-    // Get a uint8/byte value by column name or zero-based index.
-    GetUint8(col interface{}) (uint8, os.Error)
-
     // Get an int32 value by column name or zero-based index.
     GetInt32(col interface{}) (int32, os.Error)
 
     // Get an int64 value by column name or zero-based index.
     GetInt64(col interface{}) (int64, os.Error)
+
+    // Get a uint8/byte value by column name or zero-based index.
+    GetUint8(col interface{}) (uint8, os.Error)
+
+    // Get a uint16 value by column name or zero-based index.
+    GetUint16(col interface{}) (uint16, os.Error)
 
     // Get a uint32 value by column name or zero-based index.
     GetUint32(col interface{}) (uint32, os.Error)
