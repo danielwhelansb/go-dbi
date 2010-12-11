@@ -100,3 +100,16 @@ func TestConnectWithQueryString(t *testing.T) {
     }
 }
 
+func TestBadDriverFailsGracefully(t *testing.T) {
+    _, err := Connect("bad://foo/bar")
+    if err == nil {
+        t.Fatal("Expected Connect() to fail!")
+    }
+
+    AddDriver("dummy", new(DummyDriver))
+    _, err = Connect("bad//foo/baz")
+    if err == nil {
+        t.Fatal("Expected Connect() to fail despite registered driver!")
+    }
+}
+

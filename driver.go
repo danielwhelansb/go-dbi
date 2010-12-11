@@ -16,9 +16,7 @@ var drivers map[string]Driver
 
 // Register a driver implementation.
 func AddDriver(name string, driver Driver) {
-    if drivers == nil {
-        drivers = make(map[string]Driver)
-    }
+    checkDriversReady()
     drivers[name] = driver
 }
 
@@ -33,5 +31,19 @@ func Connect(dsn string) (Connection, os.Error) {
         return nil, os.NewError("No driver found: " + url.Scheme)
     }
     return driver.GetConnection(url)
+}
+
+func checkDriversReady() {
+    if drivers == nil {
+        drivers = make(map[string]Driver)
+    }
+}
+
+func init() {
+    //
+    // Previous calls to AddDriver() by imported drivers may have
+    // initialized drivers already.
+    //
+    checkDriversReady()
 }
 
