@@ -10,15 +10,6 @@ type Connection interface {
     // Executes a query, discarding the ResultSet.
     Execute(sql string, params ...interface{}) os.Error
 
-    // Get the value of the first field of the first row returned by a query.
-    GetOne(sql string, params ...interface{}) (interface{}, os.Error)
-
-    // Gets the first row returned by a query.
-    GetRow(sql string, params ...interface{}) (map[string]interface{}, os.Error)
-
-    // Gets all rows returned by a query.
-    GetAll(sql string, params ...interface{}) ([]map[string]interface{}, os.Error)
-
     // Disconnect from the database.
     Close() os.Error
 }
