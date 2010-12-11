@@ -35,6 +35,11 @@ This example assumes you have both go-dbi and the
     import (
         "fmt"
         dbi "github.com/thomaslee/go-dbi"
+        //
+        // important: import all drivers that need to be supported by your
+        //            application!
+        //
+        _ "github.com/thomaslee/go-dbd-mysql"
     )
 
     func main() {
