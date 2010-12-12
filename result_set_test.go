@@ -52,6 +52,14 @@ func (self *DummyResultSet) GetUint64(col interface{}) (uint64, os.Error) {
     return 1, nil
 }
 
+func (self *DummyResultSet) GetFloat32(col interface{}) (float32, os.Error) {
+    return 0, nil
+}
+
+func (self *DummyResultSet) GetFloat64(col interface{}) (float64, os.Error) {
+    return 0, nil
+}
+
 func (self *DummyResultSet) GetValue(col interface{}) (interface{}, os.Error) {
     return 123, nil
 }
@@ -134,6 +142,20 @@ func TestResultSetGetUint64MethodWorks(t *testing.T) {
     func(rs ResultSet) {
         rs.GetUint64(1)
         rs.GetUint64("bleh")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetFloat32MethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetFloat32(8)
+        rs.GetFloat32("moo")
+    }(new(DummyResultSet))
+}
+
+func TestResultSetGetFloat64MethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        rs.GetFloat64(2)
+        rs.GetFloat64("bah")
     }(new(DummyResultSet))
 }
 

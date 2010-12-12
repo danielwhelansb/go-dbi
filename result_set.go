@@ -37,6 +37,12 @@ type ResultSet interface {
     // Get a uint64 value by column name or zero-based index.
     GetUint64(col interface{}) (uint64, os.Error)
 
+    // Get a float32 value by column name or zero-based index.
+    GetFloat32(col interface{}) (float32, os.Error)
+
+    // Get a float64 value by column name or zero-based index.
+    GetFloat64(col interface{}) (float64, os.Error)
+
     // Get a value of arbitrary type by column name or zero-based index.
     GetValue(col interface{}) (interface{}, os.Error)
 
