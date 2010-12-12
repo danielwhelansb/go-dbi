@@ -20,6 +20,18 @@ func (self *DummyConnection) Execute(sql string, params ...interface{}) os.Error
     return nil
 }
 
+func (self *DummyConnection) BeginTransaction() os.Error {
+    return nil
+}
+
+func (self *DummyConnection) Rollback() os.Error {
+    return nil
+}
+
+func (self *DummyConnection) Commit() os.Error {
+    return nil
+}
+
 func (self *DummyConnection) Close() os.Error {
     return nil
 }
@@ -54,5 +66,23 @@ func TestQueryMethodWorks(t *testing.T) {
             t.Fatal("Expected Query() to pass")
         }
     }(conn)
+}
+
+func TestBeginTransactionMethodWorks(t *testing.T) {
+    func(c Connection) {
+        c.BeginTransaction()
+    }(new(DummyConnection))
+}
+
+func TestRollbackMethodWorks(t *testing.T) {
+    func(c Connection) {
+        c.Rollback()
+    }(new(DummyConnection))
+}
+
+func TestCommitMethodWorks(t *testing.T) {
+    func(c Connection) {
+        c.Commit()
+    }(new(DummyConnection))
 }
 

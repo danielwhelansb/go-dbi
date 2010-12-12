@@ -10,6 +10,15 @@ type Connection interface {
     // Executes a query, discarding the ResultSet.
     Execute(sql string, params ...interface{}) os.Error
 
+    // Begins a transaction.
+    BeginTransaction() os.Error
+
+    // Rolls back the current transaction.
+    Rollback() os.Error
+
+    // Commits the current transaction.
+    Commit() os.Error
+
     // Disconnect from the database.
     Close() os.Error
 }
