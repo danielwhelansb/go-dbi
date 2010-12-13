@@ -8,7 +8,7 @@ import (
 type DummyResultSet struct {
 }
 
-func (self *DummyResultSet) Len() uint64 {
+func (self *DummyResultSet) RowCount() uint64 {
     return 0
 }
 
@@ -70,9 +70,9 @@ func (self *DummyResultSet) Close() os.Error {
 
 // ---------------------
 
-func TestResultSetLenMethodWorks(t *testing.T) {
+func TestResultSetRowCountMethodWorks(t *testing.T) {
     func(rs ResultSet) {
-        rs.Len()
+        rs.RowCount()
     }(new(DummyResultSet))
 }
 
