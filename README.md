@@ -64,18 +64,29 @@ This example assumes you have both go-dbi and the
         defer rs.Close()
 
         for rs.Next() {
-            // fetch by column index ...
-            value, err := rs.GetString(0)
+            // You can scan the current row of values like so ...
+            var username string
+            err = rs.Scan(&username)
             if err != nil {
-                fmt.Printf("error: " + err.String())
-            } else {
-                fmt.Printf("GetString(0): %s\n", value)
+                fmt.Printf("error: %s\n", err.String())
+            }
+            else {
+                fmt.Printf("rs.Scan(&username): %s\n", username)
             }
 
-            // ... or by name
-            value, err = rs.GetString("username")
+            // ... or scan by column name ...
+            err = rs.Scan("username", &username)
             if err != nil {
-                fmt.Printf("error: " + err.String())
+                fmt.Printf("error: %s\n", err.String())
+            }
+            else {
+                fmt.Printf("rs.Scan(\"username\", &username): %s\n", username)
+            }
+
+            // ... or by using more traditional accessors.
+            value, err = rs.String("username")
+            if err != nil {
+                fmt.Printf("error: %s\n", err.String())
             } else {
                 fmt.Printf("GetString(\"username\"): %s\n", value)
             }
