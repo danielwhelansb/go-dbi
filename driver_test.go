@@ -9,7 +9,7 @@ import (
 type DummyDriver struct {
 }
 
-func (self *DummyDriver) GetConnection(url *http.URL) (Connection, os.Error) {
+func (self *DummyDriver) Connect(url *http.URL) (Connection, os.Error) {
     conn := new(DummyConnection)
     conn.host = url.Host
     conn.userinfo = url.RawUserinfo
@@ -26,7 +26,7 @@ func TestGetConnectionMethodWorks(*testing.T) {
     drv := new(DummyDriver)
     func(d Driver) {
         url, _ := http.ParseURL("foo://root@localhost/testdb")
-        _, _ = d.GetConnection(url)
+        _, _ = d.Connect(url)
     }(drv)
 }
 

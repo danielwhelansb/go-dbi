@@ -8,7 +8,7 @@ import (
 // API to be implemented by all drivers (i.e. go-dbd-*)
 type Driver interface {
     // Get a connection to the database identified by the given values.
-    GetConnection(url *http.URL) (Connection, os.Error)
+    Connect(url *http.URL) (Connection, os.Error)
 }
 
 // Maps driver names to their implementation.
@@ -30,7 +30,7 @@ func Connect(dsn string) (Connection, os.Error) {
     if !found {
         return nil, os.NewError("No driver found: " + url.Scheme)
     }
-    return driver.GetConnection(url)
+    return driver.Connect(url)
 }
 
 func checkDriversReady() {
