@@ -69,8 +69,7 @@ This example assumes you have both go-dbi and the
             err = rs.Scan(&username)
             if err != nil {
                 fmt.Printf("error: %s\n", err.String())
-            }
-            else {
+            } else {
                 fmt.Printf("rs.Scan(&username): %s\n", username)
             }
 
@@ -78,17 +77,16 @@ This example assumes you have both go-dbi and the
             err = rs.Scan("username", &username)
             if err != nil {
                 fmt.Printf("error: %s\n", err.String())
-            }
-            else {
+            } else {
                 fmt.Printf("rs.Scan(\"username\", &username): %s\n", username)
             }
 
             // ... or by using more traditional accessors.
-            value, err = rs.String("username")
+            username, err = rs.String("username")
             if err != nil {
                 fmt.Printf("error: %s\n", err.String())
             } else {
-                fmt.Printf("GetString(\"username\"): %s\n", value)
+                fmt.Printf("GetString(\"username\"): %s\n", username)
             }
         }
     }
