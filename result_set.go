@@ -10,6 +10,9 @@ type ResultSet interface {
     // Get the next row of results.
     Next() bool
 
+    // Scan a row of results.
+    Scan(refs ...interface{}) os.Error
+
     // Get a string value by column name or zero-based index.
     String(col interface{}) (string, os.Error)
 

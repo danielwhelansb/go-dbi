@@ -16,6 +16,10 @@ func (self *DummyResultSet) Next() bool {
     return false
 }
 
+func (self *DummyResultSet) Scan(refs ...interface{}) os.Error {
+    return nil
+}
+
 func (self *DummyResultSet) String(col interface{}) (string, os.Error) {
     return "hello", nil
 }
@@ -79,6 +83,14 @@ func TestResultSetRowCountMethodWorks(t *testing.T) {
 func TestResultSetNextMethodWorks(t *testing.T) {
     func(rs ResultSet) {
         rs.Next()
+    }(new(DummyResultSet))
+}
+
+func TestResultSetScanMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        var foo string
+        rs.Scan(&foo)
+        rs.Scan("foo", &foo)
     }(new(DummyResultSet))
 }
 
