@@ -102,7 +102,7 @@ Please log defects and feature requests using the issue tracker on github.
 
 ## About
 
-go-dbd-mysql was written by [Tom Lee](http://tomlee.co).
+go-dbi was written by [Tom Lee](http://tomlee.co).
 
 Follow me on [Twitter](http://www.twitter.com/tglee) or
 [LinkedIn](http://au.linkedin.com/pub/thomas-lee/2/386/629).
