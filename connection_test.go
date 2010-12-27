@@ -20,6 +20,10 @@ func (self *DummyConnection) Execute(sql string, params ...interface{}) os.Error
     return nil
 }
 
+func (self *DummyConnection) Prepare(sql string) (Statement, os.Error) {
+    return nil, nil
+}
+
 func (self *DummyConnection) BeginTransaction() os.Error {
     return nil
 }
@@ -66,6 +70,12 @@ func TestQueryMethodWorks(t *testing.T) {
             t.Fatal("Expected Query() to pass")
         }
     }(conn)
+}
+
+func TestPrepareMethodWorks(t *testing.T) {
+    func (c Connection) {
+        _, _ = c.Prepare("SELECT * FROM users")
+    }(new(DummyConnection))
 }
 
 func TestBeginTransactionMethodWorks(t *testing.T) {

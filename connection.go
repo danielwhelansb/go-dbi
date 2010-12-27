@@ -10,6 +10,9 @@ type Connection interface {
     // Executes a query, discarding the ResultSet.
     Execute(sql string, params ...interface{}) os.Error
 
+    // Prepares an SQL statement.
+    Prepare(sql string) (Statement, os.Error)
+
     // Begins a transaction.
     BeginTransaction() os.Error
 
