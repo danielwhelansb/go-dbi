@@ -74,7 +74,7 @@ This example assumes you have both go-dbi and the
             }
 
             // ... or scan by column name.
-            err = rs.Scan("username", &username)
+            err = rs.NamedScan("username", &username)
             if err != nil {
                 fmt.Printf("error: %s\n", err.String())
             } else {
