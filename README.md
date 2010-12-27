@@ -73,20 +73,12 @@ This example assumes you have both go-dbi and the
                 fmt.Printf("rs.Scan(&username): %s\n", username)
             }
 
-            // ... or scan by column name ...
+            // ... or scan by column name.
             err = rs.Scan("username", &username)
             if err != nil {
                 fmt.Printf("error: %s\n", err.String())
             } else {
                 fmt.Printf("rs.Scan(\"username\", &username): %s\n", username)
-            }
-
-            // ... or by using more traditional accessors.
-            username, err = rs.String("username")
-            if err != nil {
-                fmt.Printf("error: %s\n", err.String())
-            } else {
-                fmt.Printf("GetString(\"username\"): %s\n", username)
             }
         }
     }
