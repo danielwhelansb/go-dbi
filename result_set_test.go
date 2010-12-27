@@ -20,6 +20,10 @@ func (self *DummyResultSet) Scan(refs ...interface{}) os.Error {
     return nil
 }
 
+func (self *DummyResultSet) NamedScan(refs ...interface{}) os.Error {
+    return nil
+}
+
 func (self *DummyResultSet) String(col string) (string, os.Error) {
     return "hello", nil
 }
@@ -90,7 +94,13 @@ func TestResultSetScanMethodWorks(t *testing.T) {
     func(rs ResultSet) {
         var foo string
         rs.Scan(&foo)
-        rs.Scan("foo", &foo)
+    }(new(DummyResultSet))
+}
+
+func TestResultSetNamedScanMethodWorks(t *testing.T) {
+    func(rs ResultSet) {
+        var foo string
+        rs.NamedScan("foo", &foo)
     }(new(DummyResultSet))
 }
 
