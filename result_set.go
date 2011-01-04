@@ -5,7 +5,7 @@ import "os"
 // API to be implemented for query resultsets.
 type ResultSet interface {
     // The number of rows returned by the query.
-    RowCount() uint64
+    RowCount() (uint64, os.Error)
 
     // Get the next row of results.
     Next() bool

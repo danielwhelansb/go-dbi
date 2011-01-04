@@ -8,8 +8,8 @@ import (
 type DummyResultSet struct {
 }
 
-func (self *DummyResultSet) RowCount() uint64 {
-    return 0
+func (self *DummyResultSet) RowCount() (uint64, os.Error) {
+    return 0, nil
 }
 
 func (self *DummyResultSet) Next() bool {
